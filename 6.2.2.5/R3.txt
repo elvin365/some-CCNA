@@ -1,0 +1,57 @@
+Router>
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#R3
+                ^
+% Invalid input detected at '^' marker.
+	
+Router(config)#hostname R3
+R3(config)#
+R3(config)#
+R3(config)#int g0/0
+R3(config-if)#ip addr 192.168.3.1 255.255.255.0
+R3(config-if)#no shut
+
+R3(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+R3(config-if)#int S0/1/0 
+R3(config-if)#ip addr 10.3.3.2 255.255.255.252
+R3(config-if)#no shut
+
+R3(config-if)#
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+
+R3(config-if)#
+R3(config-if)#int S0/
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to up
+1/1
+R3(config-if)#ip addr 10.2.2.1
+% Incomplete command.
+R3(config-if)#ip addr 10.2.2.1 255.255.255.252
+R3(config-if)#no shut
+
+R3(config-if)#
+%LINK-5-CHANGED: Interface Serial0/1/1, changed state to up
+
+R3(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/1, changed state to up
+
+R3>
+R3>en
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router eigrp 10
+R3(config-router)#network 192.168.3.0 0.0.0.255
+R3(config-router)#network 10.3.3.0 0.0.0.3
+R3(config-router)#
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.3.3.1 (Serial0/1/0) is up: new adjacency
+
+R3(config-router)#network 10.2.2.0 0.0.0.3
+R3(config-router)#
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.2.2.2 (Serial0/1/1) is up: new adjacency
+
+R3(config-router)#

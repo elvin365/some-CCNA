@@ -1,0 +1,44 @@
+Router>
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R2
+R2(config)#int g0/0
+R2(config-if)#ip addr 192.168.2.1 255.255.255.0
+R2(config-if)#no shut
+
+R2(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+R2(config-if)#
+R2(config-if)#in S0/1/0
+R2(config-if)#ip address 10.1.1.2 255.255.255.252
+R2(config-if)#no shut
+
+R2(config-if)#
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+
+R2(config-if)#
+R2(config-if)#int S0/1/1
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to up
+ 
+R2(config-if)#ip addr 10.2.2.2 255.255.255.252
+R2(config-if)#no shut
+
+%LINK-5-CHANGED: Interface Serial0/1/1, changed state to down
+R2(config-if)#
+R2(config-if)#
+
+R2>en
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router eigrp 10
+R2(config-router)#network 10.1.1.0 0.0.0.3
+R2(config-router)#
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.1.1.1 (Serial0/1/0) is up: new adjacency
+
+R2(config-router)#network 192.168.2.0 0.0.0.255
+R2(config-router)#network 10.2.2.0 0.0.0.3
+R2(config-router)#

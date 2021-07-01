@@ -1,0 +1,262 @@
+Switch>
+Switch>
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S1
+S1(config)#
+S1(config)#hostname S2
+S2(config)#
+S2(config)#
+S2(config)#line con 0
+S2(config-line)#loggin sy
+S2(config-line)#loggin synchronous 
+S2(config-line)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S2#
+S2#
+S2#
+S2#
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int fa0/1-24
+                   ^
+% Invalid input detected at '^' marker.
+	
+S2(config)#int range fa0/1-24
+S2(config-if-range)#shut
+
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to administratively down
+
+
+
+%LINK-5-CHANGED: Interface FastEthernet0/5, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/6, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/7, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/8, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/9, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/10, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/11, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/12, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/13, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/14, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/15, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/16, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/17, changed state to administratively down
+
+
+%LINK-5-CHANGED: Interface FastEthernet0/19, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/20, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/21, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/22, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/23, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/24, changed state to administratively down
+S2(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to administratively down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
+
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to administratively down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
+
+%LINK-5-CHANGED: Interface FastEthernet0/18, changed state to administratively down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to down
+
+S2(config-if-range)#
+S2(config-if-range)#int fa0/18
+S2(config-if)#no shut
+
+S2(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/18, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+
+S2(config-if)#switchport access vlan 10
+% Access VLAN does not exist. Creating vlan 10
+S2(config-if)#switchport mode access 
+S2(config-if)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#vlan 99
+S2(config-vlan)#name Management
+S2(config-vlan)#vlan 10
+S2(config-vlan)#name Staff
+S2(config-vlan)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S2#
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int VLAN 99
+S2(config-if)#
+%LINK-5-CHANGED: Interface Vlan99, changed state to up
+
+S2(config-if)#ip address 192.168.99.12 255.255.255.0
+S2(config-if)#no shut
+S2(config-if)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S2#copy run start
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+S2#
+
+S2>en
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int range f0/1-4
+S2(config-if-range)#switchport mode trunk
+S2(config-if-range)#switchport trunk native vlan 99
+S2(config-if-range)#channel
+S2(config-if-range)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S2#
+S2#
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int fa0/1-2
+                   ^
+% Invalid input detected at '^' marker.
+	
+S2(config)#int range fa0/1-2
+S2(config-if-range)#channel-group 2 mode passive
+S2(config-if-range)#
+Creating a port-channel interface Port-channel 2
+
+S2(config-if-range)#no shut
+
+
+S2(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
+
+%LINK-5-CHANGED: Interface Port-channel2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel2, changed state to up
+
+S2(config-if-range)#
+S2(config-if-range)#int range f0/3-4
+S2(config-if-range)#switchport mode trunk
+S2(config-if-range)#switchport trunk native vlan 99
+S2(config-if-range)#channel-group 3 mode active
+S2(config-if-range)#
+Creating a port-channel interface Port-channel 3
+
+S2(config-if-range)#no shut
+
+%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to down
+
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to down
+S2(config-if-range)#
+
+
+S2#
+S2#
+S2#
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#sp
+S2(config)#spanning-tree 
+% Incomplete command.
+S2(config)#spanning-tree  vlan 10 root primary
+S2(config)#do show sp
+S2(config)#do show spannin
+S2(config)#do show spanning tree
+show spanning tree
+              ^
+% Invalid input detected at '^' marker.
+	
+S2(config)#do show spanning-tree
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0001.43DB.68B9
+             Cost        9
+             Port        27(Port-channel2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0010.1170.E9A2
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Root FWD 9         128.27   Shr
+Po3              Altn BLK 9         128.28   Shr
+
+VLAN0010
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    24586
+             Address     0010.1170.E9A2
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    24586  (priority 24576 sys-id-ext 10)
+             Address     0010.1170.E9A2
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/18           Desg FWD 19        128.18   P2p
+Po2              Desg FWD 9         128.27   Shr
+Po3              Desg LRN 9         128.28   Shr
+
+VLAN0099
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32867
+             Address     0001.43DB.68B9
+             Cost        9
+             Port        27(Port-channel2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32867  (priority 32768 sys-id-ext 99)
+             Address     0010.1170.E9A2
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Root FWD 9         128.27   Shr
+Po3              Altn BLK 9         128.28   Shr
+
+S2(config)#

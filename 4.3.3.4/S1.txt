@@ -1,0 +1,53 @@
+Switch>
+Switch>
+Switch>en
+Switch#hostname S1
+                ^
+% Invalid input detected at '^' marker.
+	
+Switch#
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S1
+S1(config)#
+S1(config)#
+S1(config)#
+S1(config)#
+S1(config)#
+S1(config)#int VLAN1
+S1(config-if)#ip address 192.168.1.11 255.255.255.0
+S1(config-if)#no shut
+
+S1(config-if)#
+%LINK-5-CHANGED: Interface Vlan1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
+
+S1(config-if)#
+S1(config-if)#
+S1(config-if)#exit
+S1(config)#
+S1(config)#ip defau
+S1(config)#ip default-gateway 192.168.1.1
+S1(config)#
+S1(config)#
+S1(config)#
+S1>
+S1>en
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#int fa0/5
+S1(config-if)#shutdown
+
+S1(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/5, changed state to administratively down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/5, changed state to down
+
+S1(config-if)#
+S1(config-if)#no shut
+
+S1(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/5, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/5, changed state to up

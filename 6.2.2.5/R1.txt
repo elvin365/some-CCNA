@@ -1,0 +1,121 @@
+Router>
+Router>
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R1
+R1(config)#int g0/0 
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shut
+
+R1(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+R1(config-if)#
+R1(config-if)#int S0/1/0
+R1(config-if)#ip address 10.1.1.1 255.255.255.252
+R1(config-if)#no shut
+
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to down
+R1(config-if)#
+R1(config-if)#int S0/1/1
+R1(config-if)#ip address 10.3.3.1 255.255.255.252
+R1(config-if)#no shut
+
+%LINK-5-CHANGED: Interface Serial0/1/1, changed state to down
+R1(config-if)#
+R1(config-if)#
+
+R1(config-if)#
+R1(config-if)#end
+R1#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#router eigrp 10
+R1(config-router)#network 10.1.1.0 0.0.0.3
+R1(config-router)#network 192.168.1.0 0.0.0.255
+R1(config-router)#network 10.3.3.0 0.0.0.3
+R1(config-router)#no
+R1(config-router)#no auto
+R1(config-router)#no auto-summary 
+R1(config-router)#
+
+R1#show ip route eigrp
+     10.0.0.0/8 is variably subnetted, 6 subnets, 3 masks
+D       10.0.0.0/8 is a summary, 00:07:00, Null0
+D       10.2.2.0/30 [90/2681856] via 10.1.1.2, 00:04:08, Serial0/1/0
+                    [90/2681856] via 10.3.3.2, 00:02:29, Serial0/1/1
+     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+D    192.168.2.0/24 [90/2172416] via 10.1.1.2, 00:04:32, Serial0/1/0
+D    192.168.3.0/24 [90/2172416] via 10.3.3.2, 00:02:39, Serial0/1/1
+
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS 10/ID(192.168.1.1)
+
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - Reply status
+
+P 10.0.0.0/8, 1 successors, FD is 2169856
+         via Summary (2169856/0), Null0
+P 10.1.1.0/30, 1 successors, FD is 2169856
+         via Connected, Serial0/1/0
+P 10.2.2.0/30, 2 successors, FD is 2681856
+         via 10.1.1.2 (2681856/2169856), Serial0/1/0
+         via 10.3.3.2 (2681856/2169856), Serial0/1/1
+P 10.3.3.0/30, 1 successors, FD is 2169856
+         via Connected, Serial0/1/1
+P 192.168.1.0/24, 1 successors, FD is 5120
+         via Connected, GigabitEthernet0/0
+P 192.168.2.0/24, 1 successors, FD is 2172416
+         via 10.1.1.2 (2172416/5120), Serial0/1/0
+P 192.168.3.0/24, 1 successors, FD is 2172416
+         via 10.3.3.2 (2172416/5120), Serial0/1/1
+
+
+R1#show int S0/1/0
+Serial0/1/0 is up, line protocol is up (connected)
+  Hardware is HD64570
+  Internet address is 10.1.1.1/30
+  MTU 1500 bytes, BW 1544 Kbit, DLY 20000 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation HDLC, loopback not set, keepalive set (10 sec)
+  Last input never, output never, output hang never
+  Last clearing of "show interface" counters never
+  Input queue: 0/75/0 (size/max/drops); Total output drops: 0
+  Queueing strategy: weighted fair
+  Output queue: 0/1000/64/0 (size/max total/threshold/drops)
+     Conversations  0/0/256 (active/max active/max total)
+     Reserved Conversations 0/0 (allocated/max allocated)
+     Available Bandwidth 1158 kilobits/sec
+  5 minute input rate 104 bits/sec, 0 packets/sec
+  5 minute output rate 104 bits/sec, 0 packets/sec
+     343 packets input, 20514 bytes, 0 no buffer
+     Received 0 broadcasts, 0 runts, 0 giants, 0 throttles
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     424 packets output, 25318 bytes, 0 underruns
+     0 output errors, 0 collisions, 1 interface resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+     DCD=up  DSR=up  DTR=up  RTS=up  CTS=up
+
+R1#
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#int S0/1/0
+R1(config-if)#bandwidth 2000
+R1(config-if)#
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.1.1.2 (Serial0/1/0) is down: interface down
+
+R1(config-if)#in
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.1.1.2 (Serial0/1/0) is up: new adjacency
+t s0/1/1
+R1(config-if)#bandwidth 64
+R1(config-if)#
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.3.3.2 (Serial0/1/1) is down: interface down
+
+R1(config-if)#
+%DUAL-5-NBRCHANGE: IP-EIGRP 10: Neighbor 10.3.3.2 (Serial0/1/1) is up: new adjacency

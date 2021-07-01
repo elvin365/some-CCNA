@@ -1,0 +1,192 @@
+R2(config)#line con 0
+R2(config-line)#logg
+R2(config-line)#logging 
+R2(config-line)#logging synchronous 
+R2(config-line)#end
+R2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#hostname R3
+R3(config)#int g0/0 
+R3(config-if)#ip address 192.168.3.1 255.255.255.0
+R3(config-if)#no shut
+R3(config-if)#int S0/1/0
+R3(config-if)#ip address 192.168.13.2 255.255.255.252
+R3(config-if)#no shut
+
+R3(config-if)#
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+
+R3(config-if)#int S0/0/1
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to up
+
+R3(config-if)#int S0/0/1
+%Invalid interface type and number
+R3(config)#int S0/1/0
+R3(config-if)#clock rate 128000
+R3(config-if)#end
+R3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#int S0/1/1
+R3(config-if)#ip address 192.168.23.2 255.255.255.252
+R3(config-if)#no shut
+
+R3(config-if)#
+%LINK-5-CHANGED: Interface Serial0/1/1, changed state to up
+
+R3(config-if)#copy run sta
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/1, changed state to up
+
+R3(config-if)#end
+R3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R3#
+R3#copy run start
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+R3#
+
+R3#
+R3#
+R3#netwo
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#network 192.168.3.0 0.0.0.255
+            ^
+% Invalid input detected at '^' marker.
+	
+R3(config)#network 192.168.3.0 0.0.0.255 area 0
+            ^
+% Invalid input detected at '^' marker.
+	
+R3(config)#router ospf 1
+R3(config-router)#network 192.168.3.0 0.0.0.255 area 0
+R3(config-router)#network 192.168.13.0 0.0.0.3 area 0
+R3(config-router)#net
+R3(config-router)#network 192.168
+00:56:13: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.13.1 on Serial0/1/0 from LOADING to FULL, Loading Done
+
+R3(config-router)#network 192.168.23.0 0.0.0.3 area 0
+R3(config-router)#
+00:56:34: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.23.1 on Serial0/1/1 from LOADING to FULL, Loading Done
+
+R3(config-router)#
+
+R3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R3#show ip ospf rei
+R3#show ip ospf rei
+R3#show ip ospf nei
+R3#show ip ospf neighbor 
+
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+192.168.23.1      0   FULL/  -        00:00:31    192.168.23.1    Serial0/1/1
+192.168.13.1      0   FULL/  -        00:00:31    192.168.13.1    Serial0/1/0
+R3#
+copy run start 
+reload
+
+
+R3>
+R3>en
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#router-
+R3(config-router)#router-id 33.33.33.33
+R3(config-router)#Reload or use "clear ip ospf process" command, for this to take effect
+
+
+R3(config-router)#end
+R3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R3#
+R3#
+R3#clear ip ospf proc
+Reset ALL OSPF processes? [no]: 
+
+R3#
+R3#copy run sta
+R3#copy run startup-config 
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+R3#
+
+reload
+
+R3#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     3.0.0.0/32 is subnetted, 1 subnets
+C       3.3.3.3/32 is directly connected, Loopback0
+O    192.168.1.0/24 [110/65] via 192.168.13.1, 00:05:01, Serial0/1/0
+O    192.168.2.0/24 [110/65] via 192.168.23.1, 00:05:01, Serial0/1/1
+     192.168.3.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.3.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.3.1/32 is directly connected, GigabitEthernet0/0
+     192.168.12.0/30 is subnetted, 1 subnets
+O       192.168.12.0/30 [110/128] via 192.168.13.1, 00:05:01, Serial0/1/0
+                        [110/128] via 192.168.23.1, 00:05:01, Serial0/1/1
+     192.168.13.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.13.0/30 is directly connected, Serial0/1/0
+L       192.168.13.2/32 is directly connected, Serial0/1/0
+     192.168.23.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.23.0/30 is directly connected, Serial0/1/1
+L       192.168.23.2/32 is directly connected, Serial0/1/1
+
+R3#
+
+R3>
+R3>en
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#auto-cost reference-bandwidth 10000
+% OSPF: Reference bandwidth is changed.
+        Please ensure reference bandwidth is consistent across all routers.
+R3(config-router)#end
+R3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+
+
+R3#
+R3#
+R3#router ospf 1
+          ^
+% Invalid input detected at '^' marker.
+	
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#auto-con
+R3(config-router)#auto-con
+R3(config-router)#auto-co
+R3(config-router)#auto-cost 
+R3(config-router)#auto-cost reference-bandwidth 
+R3(config-router)#auto-cost reference-bandwidth 100
+% OSPF: Reference bandwidth is changed.
+        Please ensure reference bandwidth is consistent across all routers.
+R3(config-router)#
+copy run
+ reload
+

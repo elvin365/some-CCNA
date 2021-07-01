@@ -1,0 +1,364 @@
+witch>
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S3
+S3(config)#lline con 0
+             ^
+% Invalid input detected at '^' marker.
+	
+S3(config)#end
+S3#
+%SYS-5-CONFIG_I: Configured from console by console
+conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#line con 0
+S3(config-line)#logg sy
+S3(config-line)#logg synchronous 
+S3(config-line)#nd
+                 ^
+% Invalid input detected at '^' marker.
+	
+S3(config-line)#ed
+                 ^
+% Invalid input detected at '^' marker.
+	
+S3(config-line)#end
+S3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S3#cof t
+       ^
+% Invalid input detected at '^' marker.
+	
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int range fa0/1-24
+S3(config-if-range)#shut
+
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/5, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/6, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/7, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/8, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/9, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/10, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/11, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/12, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/13, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/14, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/15, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/16, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/17, changed state to administratively down
+
+
+%LINK-5-CHANGED: Interface FastEthernet0/19, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/20, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/21, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/22, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/23, changed state to administratively down
+
+%LINK-5-CHANGED: Interface FastEthernet0/24, changed state to administratively down
+S3(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/18, changed state to administratively down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to down
+
+S3(config-if-range)#
+S3(config-if-range)#int fa0/18
+S3(config-if)#no shut
+
+S3(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/18, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+
+S3(config-if)#vlan 99
+S3(config-vlan)#name Management
+S3(config-vlan)#vlan 10
+S3(config-vlan)#anme Staff
+                ^
+% Invalid input detected at '^' marker.
+	
+S3(config-vlan)#name Staff
+S3(config-vlan)#end
+S3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int fa0/6
+S3(config-if)#int fa0/18
+S3(config-if)#switchport access vlan 10
+S3(config-if)#switchport mode access 
+S3(config-if)#end
+S3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int VLAN 99
+S3(config-if)#
+%LINK-5-CHANGED: Interface Vlan99, changed state to up
+
+S3(config-if)#ip 192.168.99.13 255.255.255.0
+                 ^
+% Invalid input detected at '^' marker.
+	
+S3(config-if)#ip address 192.168.99.13 255.255.255.0
+S3(config-if)#no shut
+S3(config-if)#end
+S3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S3#copy run
+% Incomplete command.
+S3#copy run start
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+S3#
+
+S3>
+S3>en
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int range f0/1-2
+S3(config-if-range)#switchport mode trunk
+S3(config-if-range)#switchport trunk native vlan 99
+S3(config-if-range)#channel-group 3 mode passive
+S3(config-if-range)#
+Creating a port-channel interface Port-channel 3
+
+S3(config-if-range)#no shut
+
+
+S3(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
+
+%LINK-5-CHANGED: Interface Port-channel3, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel3, changed state to up
+
+S3(config-if-range)#int range fa0/3-4
+S3(config-if-range)#switchport mode trunk
+S3(config-if-range)#switchport trunk native vlan 99
+S3(config-if-range)#chnn
+S3(config-if-range)#channel-group 2 mode passive
+S3(config-if-range)#
+Creating a port-channel interface Port-channel 2
+
+S3(config-if-range)#no channel-group 2 mode passive
+S3(config-if-range)#channel-group 1 mode passive
+S3(config-if-range)#
+Creating a port-channel interface Port-channel 1
+
+S3(config-if-range)#no shut
+
+
+S3(config-if-range)#
+%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
+
+%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
+
+%LINK-5-CHANGED: Interface Port-channel1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to up
+
+S3(config-if-range)#
+
+S3#show run
+Building configuration...
+
+Current configuration : 1957 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname S3
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface Port-channel1
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface Port-channel2
+!
+interface Port-channel3
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 3 mode passive
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 3 mode passive
+!
+interface FastEthernet0/3
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface FastEthernet0/4
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ shutdown
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ mac-address 0001.6335.3501
+ ip address 192.168.99.13 255.255.255.0
+!
+!
+!
+!
+line con 0
+ logging synchronous
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+
+
+S3#show etherchannel sum
+Flags:  D - down        P - in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 3
+Number of aggregators:           3
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
+
+1      Po1(SU)           LACP   Fa0/3(P) Fa0/4(P) 
+2      Po2(SD)           LACP   
+3      Po3(SU)           LACP   Fa0/1(P) Fa0/2(P) 
+S3#

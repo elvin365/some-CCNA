@@ -1,0 +1,216 @@
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+
+
+Switch>
+Switch>
+Switch>en
+Switch#en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S2
+S2(config)#vtp domain CCNA
+Changing VTP domain name from NULL to CCNA
+S2(config)#vtp mode server
+Device mode already VTP SERVER.
+S2(config)#vtp password cisco
+Setting device VLAN database password to cisco
+S2(config)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+S2(config)#
+S2(config)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S2#
+S2#show interfaces trunk
+Port        Mode         Encapsulation  Status        Native vlan
+Fa0/1       auto         n-802.1q       trunking      1
+
+Port        Vlans allowed on trunk
+Fa0/1       1-1005
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1
+
+S2#
+S2#%SPANTREE-2-RECV_PVID_ERR: Received 802.1Q BPDU on non trunk FastEthernet0/3 VLAN1.
+
+%SPANTREE-2-BLOCK_PVID_LOCAL: Blocking FastEthernet0/3 on VLAN0001. Inconsistent port type.
+
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
+
+S2#
+S2#
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#vlan 10
+S2(config-vlan)#name Red
+S2(config-vlan)#vlan 20
+S2(config-vlan)#name Blue
+S2(config-vlan)#vlan 30
+S2(config-vlan)#name Yellow
+S2(config-vlan)#vlan 99
+S2(config-vlan)#name Management
+S2(config-vlan)#end
+S2#
+%SYS-5-CONFIG_I: Configured from console by console
+ show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/2, Fa0/4, Fa0/5, Fa0/6
+                                                Fa0/7, Fa0/8, Fa0/9, Fa0/10
+                                                Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                Fa0/19, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24, Gig0/1, Gig0/2
+10   Red                              active    
+20   Blue                             active    
+30   Yellow                           active    
+99   Management                       active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+S2#show vtp status
+VTP Version                     : 2
+Configuration Revision          : 8
+Maximum VLANs supported locally : 255
+Number of existing VLANs        : 9
+VTP Operating Mode              : Server
+VTP Domain Name                 : CCNA
+VTP Pruning Mode                : Disabled
+VTP V2 Mode                     : Disabled
+VTP Traps Generation            : Disabled
+MD5 digest                      : 0x2F 0x04 0xBC 0x29 0x98 0x0E 0x50 0x0F 
+Configuration last modified by 0.0.0.0 at 3-1-93 00:30:30
+Local updater ID is 0.0.0.0 (no valid interface found)
+S2#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/2, Fa0/4, Fa0/5, Fa0/6
+                                                Fa0/7, Fa0/8, Fa0/9, Fa0/10
+                                                Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                Fa0/19, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24, Gig0/1, Gig0/2
+10   Red                              active    
+20   Blue                             active    
+30   Yellow                           active    
+99   Management                       active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+S2#show vlan
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/2, Fa0/4, Fa0/5, Fa0/6
+                                                Fa0/7, Fa0/8, Fa0/9, Fa0/10
+                                                Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                Fa0/19, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24, Gig0/1, Gig0/2
+10   Red                              active    
+20   Blue                             active    
+30   Yellow                           active    
+99   Management                       active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+
+VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+1    enet  100001     1500  -      -      -        -    -        0      0
+10   enet  100010     1500  -      -      -        -    -        0      0
+20   enet  100020     1500  -      -      -        -    -        0      0
+30   enet  100030     1500  -      -      -        -    -        0      0
+99   enet  100099     1500  -      -      -        -    -        0      0
+1002 fddi  101002     1500  -      -      -        -    -        0      0   
+1003 tr    101003     1500  -      -      -        -    -        0      0   
+1004 fdnet 101004     1500  -      -      -        ieee -        0      0   
+1005 trnet 101005     1500  -      -      -        ibm  -        0      0   
+
+VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+
+Remote SPAN VLANs
+------------------------------------------------------------------------------
+
+Primary Secondary Type              Ports
+------- --------- ----------------- ------------------------------------------
+S2#
+
+
+
+
+
+
+
+
+S2 con0 is now available
+
+
+
+
+
+
+Press RETURN to get started.
+
+
+
+
+
+
+
+
+
+
+
+
+
+S2>
+S2>en
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int f0/18
+S2(config-if)#switchport mode access
+S2(config-if)#switchport access vlan 10
+S2(config-if)#switchport access vlan 20
+S2(config-if)#int vlan 99
+S2(config-if)#
+%LINK-5-CHANGED: Interface Vlan99, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed state to up
+
+S2(config-if)#ip address 192.168.99.2 255.255.255.0
+S2(config-if)#no shut
+S2(config-if)#
+
+
+
+
+
+
+
+
+S2 con0 is now available
+
+
+
+
+
+
+Press RETURN to get started.

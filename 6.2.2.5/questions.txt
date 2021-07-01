@@ -1,0 +1,56 @@
+1.вопрос
+R1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 6 subnets, 3 masks
+D       10.0.0.0/8 is a summary, 00:24:04, Null0
+C       10.1.1.0/30 is directly connected, Serial0/1/0
+L       10.1.1.1/32 is directly connected, Serial0/1/0
+!!D       10.2.2.0/30 [90/2681856] via 10.1.1.2, 00:21:12, Serial0/1/0
+!!два маршрута                    [90/2681856] via 10.3.3.2, 00:19:33, Serial0/1/1
+C       10.3.3.0/30 is directly connected, Serial0/1/1
+L       10.3.3.1/32 is directly connected, Serial0/1/1
+     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.1.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.1.1/32 is directly connected, GigabitEthernet0/0
+D    192.168.2.0/24 [90/2172416] via 10.1.1.2, 00:21:36, Serial0/1/0
+D    192.168.3.0/24 [90/2172416] via 10.3.3.2, 00:19:43, Serial0/1/1
+
+Изменилось:
+R1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 6 subnets, 3 masks
+D       10.0.0.0/8 is a summary, 00:09:51, Null0
+C       10.1.1.0/30 is directly connected, Serial0/1/0
+L       10.1.1.1/32 is directly connected, Serial0/1/0
+D       10.2.2.0/30 [90/2304000] via 10.1.1.2, 00:02:45, Serial0/1/0!!! т.к у одного инт 2000 кб\с , у другого 64
+C       10.3.3.0/30 is directly connected, Serial0/1/1
+L       10.3.3.1/32 is directly connected, Serial0/1/1
+     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.1.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.1.1/32 is directly connected, GigabitEthernet0/0
+D    192.168.2.0/24 [90/1794560] via 10.1.1.2, 00:09:49, Serial0/1/0
+D    192.168.3.0/24 [90/2306560] via 10.1.1.2, 00:02:42, Serial0/1/0
+а на R2 оба идентичны
+
+2.( BW 2000 Kbit + DLY 20000)*256 (пошла через 10.2.2.2)
+2.1 10^7/2000(мин полоса пропусканию)+ (2000+2000 и перевод в микросекунды+10)*256
+
+
